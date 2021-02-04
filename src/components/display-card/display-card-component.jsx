@@ -1,14 +1,22 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 
 import './display-card-style.scss';
 import briefcase from '../../gallery/briefcase.svg';
 
 class DisplayCard extends React.Component {
+
+    getJobDetails = () => {
+        this.props.history.push(`/job/${this.props.job.id}`);
+    }
+
     render() {
         return (
             <Col md={6} xl={4} className="display-card-container">
-                <div className="display-card">
+                <div onClick = {() => {
+                    this.getJobDetails();
+                }} className="display-card">
                     <div className="img-container">
                         <img className='top-img' src={this.props.job.company_logo ? this.props.job.company_logo : briefcase} alt=""/>
                     </div>
@@ -21,7 +29,7 @@ class DisplayCard extends React.Component {
                             {this.props.job.company}
                         </h1>
                         
-                        <div className="size10 text-muted info-text">
+                        <div className="size10 text-muted text-center info-text">
                             {this.props.job.type}, {this.props.job.location}
                         </div>
                     </div>
@@ -31,4 +39,4 @@ class DisplayCard extends React.Component {
     }
 }
 
-export default DisplayCard;
+export default withRouter(DisplayCard);

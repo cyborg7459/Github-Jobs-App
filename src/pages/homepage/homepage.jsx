@@ -27,22 +27,29 @@ class Homepage extends React.Component {
             alert('Kindly enter a search phrase');
         else {
             const url = `https://cors-anywhere.herokuapp.com/jobs.github.com/positions.json?search=${description}`;
-            axios.get(url)
+            axios.get(url , {
+                params : {
+                    client_id: 'b85430361f60035ae896',
+                    client_secret: 'a16fb97dede93c482e81b3c8843481e1d1c12353'
+                }
+            })
             .then(res => {
                 if(res.data == null || res.data.length === 0) {
-                    alert('YES');
                     this.setState({
-                        show404 : true
+                        show404 : true,
+                        isLoading: false
                     })
                 }
-                this.setState({
-                    jobs : res.data,
-                    isLoading : false,
-                    totalPages : Math.ceil(res.data.length/5),
-                    currentPage : 1,
-                    show404 : false,
-                    displayJobs : res.data.slice(0,5)
-                })
+                else {
+                    this.setState({
+                        jobs : res.data,
+                        isLoading : false,
+                        totalPages : Math.ceil(res.data.length/6),
+                        currentPage : 1,
+                        show404 : false,
+                        displayJobs : res.data.slice(0,6)
+                    })
+                }                
             })
         }
     }
@@ -73,7 +80,7 @@ class Homepage extends React.Component {
                                 this.state.show404 ? (
                                     <ErrorPage />
                                 ) : (
-                                    <Row>
+                                    <Row className='pb-5'>
                                         {
                                             this.state.displayJobs.map(job => {
                                                 return (
