@@ -8,6 +8,10 @@
         max-width: 1500px!important;
         padding: 0px 30px;
 
+        .side-col {
+            overflow-x: auto;
+        }
+
         .logo {
             width: 180px;
         }

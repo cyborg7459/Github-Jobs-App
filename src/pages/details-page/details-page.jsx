@@ -11,7 +11,7 @@ const DetailsPage = ({...props}) => {
         <div className="details-page-container">
             <div className="details-page-inner">
                 <Row>
-                    <Col md={3} className = 'pr-xl-4'>
+                    <Col md={3} className = 'side-col mb-5 pr-xl-4'>
                         <p onClick={() => {
                             props.back();
                         }} className='back-btn size13'>
@@ -21,7 +21,7 @@ const DetailsPage = ({...props}) => {
                         <h1 className='mt-5 text-muted size12'>HOW TO APPLY</h1>
                         <div className='size11' dangerouslySetInnerHTML={{__html: job.how_to_apply}} ></div>
                     </Col>
-                    <Col md={8}>
+                    <Col className='pl-md-5' md={8}>
                         <h1>{job.title}</h1>
                         <h5 className='text-muted'>
                             <i className="far mr-3 fa-clock"></i>
