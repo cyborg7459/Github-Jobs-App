@@ -11,5 +11,18 @@
         .logo {
             width: 180px;
         }
+
+        .back-btn {
+            color: #06b7ba;
+            cursor: pointer;
+
+            &:hover>.back-text {
+                margin-left: 10px;
+            }
+
+            .back-text {
+                transition: all ease-in 0.2s;
+            }
+        }
     }
 }

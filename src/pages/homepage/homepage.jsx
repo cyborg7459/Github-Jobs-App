@@ -152,7 +152,11 @@ class Homepage extends React.Component {
     render() {
         if(this.state.selectedJob) {
             return (
-                <DetailsPage job = {this.state.selectedJob} />
+                <DetailsPage back = {() => {
+                    this.setState({
+                        selectedJob : null
+                    })
+                }} job = {this.state.selectedJob} />
             )
         }
         else {
