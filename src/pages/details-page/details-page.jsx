@@ -3,6 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import logo from '../../gallery/briefcase.svg';
 
 const DetailsPage = ({...props}) => {
+    window.scrollTo(0, 0);
     const job = props.job;
     let curDate = Date.now();
     let postDate = new Date(job.created_at);
