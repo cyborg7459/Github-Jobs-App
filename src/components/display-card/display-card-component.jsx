@@ -6,17 +6,10 @@ import './display-card-style.scss';
 import briefcase from '../../gallery/briefcase.svg';
 
 class DisplayCard extends React.Component {
-
-    getJobDetails = () => {
-        this.props.history.push(`/job/${this.props.job.id}`);
-    }
-
     render() {
         return (
             <Col md={6} xl={4} className="display-card-container">
-                <div onClick = {() => {
-                    this.getJobDetails();
-                }} className="display-card">
+                <div className="display-card" onClick={() => {this.props.select(this.props.job.id)}} >
                     <div className="img-container">
                         <img className='top-img' src={this.props.job.company_logo ? this.props.job.company_logo : briefcase} alt=""/>
                     </div>

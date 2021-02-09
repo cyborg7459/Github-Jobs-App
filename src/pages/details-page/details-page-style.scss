@@ -1,0 +1,15 @@
+.details-page-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .details-page-inner {
+        width: 100%;
+        max-width: 1500px!important;
+        padding: 0px 30px;
+
+        .logo {
+            width: 180px;
+        }
+    }
+}
