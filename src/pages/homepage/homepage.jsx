@@ -19,15 +19,23 @@ class Homepage extends React.Component {
         totalPages : 5,
         isNextAvailable : true,
         isPrevAvailable : true,
-        selectedJob : {}
+        selectedJob : {},
+        searchLocation : "",
+        searchDescription : ""
     }
 
-    search = (url) => {
+    componentDidMount() {
+        this.search();
+    }
+
+    search = () => {
         this.setState({
             isLoading : true
         });
-        axios.get(url, {
+        axios.get('https://obscure-mesa-98003.herokuapp.com/https://jobs.github.com/positions.json', {
             params : {
+                'description' : this.state.searchDescription,
+                'location' : this.state.searchLocation,
                 'client_id' : 'b85430361f60035ae896',
                 'client_secret' : '77931ca184a8d34502736445e9cc91450cc3b5bc'
             }
@@ -70,22 +78,20 @@ class Homepage extends React.Component {
 
     searchByDescription = () => { 
         const description = document.getElementById('search-phrase').value;
-        if(description === "")
-            alert('Kindly enter a search phrase');
-        else {
-            const url = `https://obscure-mesa-98003.herokuapp.com/https://jobs.github.com/positions.json?search=${description}`;
-            this.search(url);
-        }
+        this.setState({
+            searchDescription : description
+        }, () => {
+            this.search();
+        })
     }
 
     searchByLocation = () => {
         const location = document.getElementById('location').value;
-        if(location === "")
-            alert("Please enter a location");
-        else {
-            const url = `https://obscure-mesa-98003.herokuapp.com/https://jobs.github.com/positions.json?location=${location}`;
-            this.search(url);
-        }
+        this.setState({
+            searchLocation : location
+        }, () => {
+            this.search();
+        })
     }
 
     nextPage = () => {
@@ -143,6 +149,13 @@ class Homepage extends React.Component {
                             <hr className='mt-2 mb-4'></hr>
                             <input id='location' className='mb-3' type="text" placeholder="Enter location"/>
                             <button onClick = {() => {this.searchByLocation()}}>Search by location</button>
+                            <button className='btn-danger mt-3' onClick={() => {
+                                this.setState({
+                                    searchLocation: ""
+                                }, () => {
+                                    this.search();
+                                })
+                            }}>Clear location filter</button>
                         </Col>
                         <Col md={8} xl={9} className='jobcard-container'>
                             {
