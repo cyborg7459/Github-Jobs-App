@@ -1,0 +1,12 @@
+.paginator {
+    margin-bottom: 50px;
+    
+    .fas {
+        cursor: pointer;
+    }
+
+    .disabled {
+        color:  gray;
+        cursor: not-allowed;
+    }
+}

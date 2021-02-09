@@ -6,6 +6,7 @@ import './homepage-style.scss';
 import Loader from '../../components/loader/loader.component';
 import ErrorPage from '../../components/404error/404error-component';
 import DisplayCard from '../../components/display-card/display-card-component';
+import Paginator from '../../components/paginator/paginator-component';
 
 class Homepage extends React.Component {
     
@@ -14,8 +15,10 @@ class Homepage extends React.Component {
         isLoading : false,
         show404 : false,
         displayJobs : [],
-        currentPage : 0, 
-        totalPages : 0
+        currentPage : 1, 
+        totalPages : 5,
+        isNextAvailable : true,
+        isPrevAvailable : true
     }
 
     searchByDescription = () => {
@@ -26,11 +29,11 @@ class Homepage extends React.Component {
         if(description === "")
             alert('Kindly enter a search phrase');
         else {
-            const url = `https://cors-anywhere.herokuapp.com/jobs.github.com/positions.json?search=${description}`;
-            axios.get(url , {
+            const url = `https://obscure-mesa-98003.herokuapp.com/https://jobs.github.com/positions.json?search=${description}`;
+            axios.get(url, {
                 params : {
-                    client_id: 'b85430361f60035ae896',
-                    client_secret: 'a16fb97dede93c482e81b3c8843481e1d1c12353'
+                    'client_id' : 'b85430361f60035ae896',
+                    'client_secret' : '77931ca184a8d34502736445e9cc91450cc3b5bc'
                 }
             })
             .then(res => {
@@ -47,11 +50,57 @@ class Homepage extends React.Component {
                         totalPages : Math.ceil(res.data.length/6),
                         currentPage : 1,
                         show404 : false,
-                        displayJobs : res.data.slice(0,6)
-                    })
+                        displayJobs : res.data.slice(0,6),
+                        isPrevAvailable : false
+                    });
+                    if(res.data.length > 6) {
+                        this.setState({
+                            isNextAvailable : true
+                        });
+                    }
                 }                
             })
+            .catch(err => {
+                this.setState({
+                    show404 : true,
+                    isLoading : false
+                });
+            })
         }
+    }
+
+    nextPage = () => {
+        this.setState({
+            currentPage : this.state.currentPage + 1,
+            isPrevAvailable : true
+        }, () => {
+            const start = (this.state.currentPage-1)*6;
+            this.setState({
+                displayJobs : this.state.jobs.slice(start, start+6)
+            })
+            if(this.state.currentPage === this.state.totalPages) {
+                this.setState({
+                    isNextAvailable : false
+                })
+            }
+        })
+    }
+
+    previousPage = () => {
+        this.setState({
+            currentPage : this.state.currentPage - 1,
+            isNextAvailable : true
+        }, () => {
+            const start = (this.state.currentPage-1)*6;
+            this.setState({
+                displayJobs : this.state.jobs.slice(start, start+6)
+            })
+            if(this.state.currentPage === 1) {
+                this.setState({
+                    isPrevAvailable : false
+                })
+            }
+        })
     }
 
     render() {
@@ -91,6 +140,12 @@ class Homepage extends React.Component {
                                     </Row>       
                                 )
                             }
+                            {
+                                (this.state.jobs.length > 0 ) ?
+                                <Paginator currentPage = {this.state.currentPage} totalPages = {this.state.totalPages} isNextAvailable = {this.state.isNextAvailable} isPrevAvailable = {this.state.isPrevAvailable} nextPage = {this.nextPage} prevPage = {this.previousPage} />
+                                : null
+                            }
+                            
                         </Col>
                     </Row>
                 </div>
