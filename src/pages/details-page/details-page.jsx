@@ -1,5 +1,6 @@
 import './details-page-style.scss';
 import { Row, Col } from 'react-bootstrap';
+import logo from '../../gallery/briefcase.svg';
 
 const DetailsPage = ({...props}) => {
     const job = props.job;
@@ -28,7 +29,7 @@ const DetailsPage = ({...props}) => {
                             {difference} days ago
                         </h5>
                         <div className='mt-5 d-flex'>
-                            <img className='logo mr-4' src={job.company_logo} alt=""/>
+                            <img className='logo mr-4' src={job.company_logo ? job.company_logo : logo} alt=""/>
                             <div className='d-flex flex-column justify-content-center'>
                                 <h3 className='size13'>{job.company}</h3>
                                 <h3 className='size13 text-muted'>
@@ -37,7 +38,7 @@ const DetailsPage = ({...props}) => {
                                 </h3>
                             </div>
                         </div>
-                        <div className='mt-5' dangerouslySetInnerHTML={{__html: description}}></div>
+                        <div className='mt-5 size11' dangerouslySetInnerHTML={{__html: description}}></div>
                     </Col>
                 </Row>
             </div>

@@ -7,7 +7,11 @@
     .header-inner {
         width: 100%;
         padding: 30px;
-        max-width: 1500px!important;
+        max-width: 1350px!important;
+
+        @media(max-width: 800px) {
+            padding: 20px 15px;
+        }
     }
 
     #header-bold {

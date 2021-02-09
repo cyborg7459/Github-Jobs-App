@@ -2,11 +2,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
 
+html {
+  font-size: 14px;
+  min-height: 100vh
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Poppins', sans-serif!important;
+  height: 100%;
+}
+
+.main {
+  position: relative;
+  padding-bottom: 80px;
   min-height: 100vh;
 }
 

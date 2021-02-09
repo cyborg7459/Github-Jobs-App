@@ -5,8 +5,12 @@
 
     .homepage-inner {
         width: 100%;
-        max-width: 1500px!important;
+        max-width: 1350px!important;
         padding: 0px 30px;
+
+        @media(max-width: 800px) {
+            padding: 0 15px;
+        }
 
         .search-container {
             background: url('../../gallery/jumbo-bg.jfif');
